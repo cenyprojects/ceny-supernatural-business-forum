@@ -2,7 +2,7 @@
 // CONFIGURATION
 // Paste your deployed Apps Script Web App URL here:
 // ─────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbygyXRLkM55lFRdaR2icpyStxLiLIB6ygkklFXpYIb9mjbvDITtP9vhjBaF_X-UiMyE/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwlvNQmoFBMfaaRkEoNp6IQfE9DvHzXY1IK_pEPFHt5zBvLEa5wd8najQsRDyHMByxo/exec';
 
 // ── Phone auto-formatter ──
 document.getElementById('phone').addEventListener('input', function () {
@@ -58,10 +58,10 @@ document.getElementById('userForm').addEventListener('submit', async function (e
   try {
     await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      // no-cors avoids CORS preflight; response is opaque but data still reaches Apps Script
       mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(payload),
+      // URLSearchParams sends as application/x-www-form-urlencoded — a simple CORS request
+      // that survives Apps Script's redirect, unlike JSON bodies which get dropped
+      body: new URLSearchParams(payload),
     });
 
     // With no-cors we can't read the response, so we optimistically treat a resolved fetch as success
