@@ -56,23 +56,19 @@ document.getElementById('userForm').addEventListener('submit', async function (e
   const payload = { firstName, lastName, phone, instagram, tiktok, gender, bornAgain };
 
   try {
-    const response = await fetch(APPS_SCRIPT_URL, {
+    await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      // Apps Script requires text/plain to avoid CORS preflight
+      // no-cors avoids CORS preflight; response is opaque but data still reaches Apps Script
+      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(payload),
     });
 
-    const result = await response.json();
-
-    if (result.status === 'success') {
-      this.querySelectorAll('input').forEach(el => el.disabled = true);
-      submitBtn.textContent = '✓ Submitted!';
-      submitBtn.classList.add('submitted');
+    // With no-cors we can't read the response, so we optimistically treat a resolved fetch as success
+    this.querySelectorAll('input').forEach(el => el.disabled = true);
+    submitBtn.textContent = '✓ Submitted!';
+    submitBtn.classList.add('submitted');
     showToast('Your info has been saved to our records.', 'success');
-    } else {
-      throw new Error(result.message || 'Unknown error');
-    }
   } catch (err) {
     console.error('Submission error:', err);
     showToast('❌ Something went wrong. Please try again.', 'error');
