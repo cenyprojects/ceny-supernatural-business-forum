@@ -2,7 +2,7 @@
 // CONFIGURATION
 // Paste your deployed Apps Script Web App URL here:
 // ─────────────────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwmeJpFgK-D3i5qvPMJXcfzjIZW-0DfC2Xvcuieg-Vyp51yGcjEMFUgpxfoI7NX50yE/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbygyXRLkM55lFRdaR2icpyStxLiLIB6ygkklFXpYIb9mjbvDITtP9vhjBaF_X-UiMyE/exec';
 
 // ── Phone auto-formatter ──
 document.getElementById('phone').addEventListener('input', function () {
